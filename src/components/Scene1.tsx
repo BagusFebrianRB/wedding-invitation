@@ -73,7 +73,7 @@ export default function Scene1({
           ready ? "cursor-pointer" : "cursor-default"
         }`}
       >
-        <Image src="/couple.png" alt="" width={400} height={533} priority className="object-cover w-full h-full" />
+        <Image src="/couple.png" alt="" width={400} height={533} priority className="object-cover object-bottom w-full h-full" />
       </motion.div>
 
       <motion.p
