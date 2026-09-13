@@ -1,11 +1,11 @@
 import Image from "next/image";
 
-export default function SaveTheDate() {
+export default function Penutup() {
   return (
     <section className="relative min-h-screen w-full">
       <Image
-        src="/save-the-date.png"
-        alt="Save the date"
+        src="/penutup.png"
+        alt="Penutup"
         fill
         className="object-cover object-center"
       />

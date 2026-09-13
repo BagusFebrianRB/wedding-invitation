@@ -6,6 +6,9 @@ import PhotoHero from "@/components/PhotoHero";
 import DoaSection from "@/components/DoaSection";
 import CoupleProfile from "@/components/CoupleProfile";
 import SaveTheDate from "@/components/SaveTheDate";
+import LocationSection from "@/components/LocationSection";
+import GiftSection from "@/components/GiftSection";
+import Penutup from "@/components/Penutup";
 import { weddingData } from "@/data/content";
 
 export default function HomeClient({ guestName }: { guestName: string }) {
@@ -45,6 +48,9 @@ export default function HomeClient({ guestName }: { guestName: string }) {
                 fullName={weddingData.groom.fullName}
               />
               <SaveTheDate />
+              <LocationSection />
+              <GiftSection />
+              <Penutup />
             </>
           )}
         </>
