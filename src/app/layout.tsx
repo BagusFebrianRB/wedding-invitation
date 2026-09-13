@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Great_Vibes, Jost } from "next/font/google";
+import { Great_Vibes, Jost, Poppins, Pinyon_Script } from "next/font/google";
 import SmoothScroll from "@/components/SmoothScroll";
 import "./globals.css";
 
@@ -13,6 +13,18 @@ const jost = Jost({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600"],
   variable: "--font-sans",
+});
+
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-poppins",
+});
+
+const pinyonScript = Pinyon_Script({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-pinyon",
 });
 
 export const viewport: Viewport = {
@@ -36,7 +48,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="id">
-      <body className={`${greatVibes.variable} ${jost.variable} font-sans bg-ivory text-charcoal antialiased`}>
+      <body className={`${greatVibes.variable} ${jost.variable} ${poppins.variable} ${pinyonScript.variable} font-sans bg-ivory text-charcoal antialiased`}>
         <SmoothScroll>
           <div className="max-w-120 mx-auto min-h-screen relative overflow-x-hidden shadow-xl">
             {children}

@@ -9,6 +9,8 @@
 
   --font-script: var(--font-script);
   --font-sans: var(--font-sans);
+  --font-poppins: var(--font-poppins);
+  --font-pinyon: var(--font-pinyon);
 }
 
 body {

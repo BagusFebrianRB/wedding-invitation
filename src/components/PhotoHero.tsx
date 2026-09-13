@@ -43,7 +43,7 @@ export default function PhotoHero({
           transition={{ delay: 0.5, duration: 1, ease: "easeOut" }}
           className="font-script text-5xl text-ivory"
         >
-          {weddingData.groom.name} & {weddingData.bride.name}
+          {weddingData.bride.name} & {weddingData.groom.name}
         </motion.h1>
       </div>
     </section>
