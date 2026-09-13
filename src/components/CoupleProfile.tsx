@@ -16,7 +16,7 @@ export default function CoupleProfile({
 }) {
   return (
     <section className="relative z-10 h-screen w-full overflow-hidden">
-      <ParallaxImage src={photo} alt="" fill className="object-cover" />
+      <ParallaxImage src={photo} alt="" />
 
       <motion.div
         initial={{ opacity: 0, y: 20 }}
