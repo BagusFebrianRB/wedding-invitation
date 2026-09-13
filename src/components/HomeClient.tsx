@@ -5,6 +5,7 @@ import Scene1 from "@/components/Scene1";
 import PhotoHero from "@/components/PhotoHero";
 import DoaSection from "@/components/DoaSection";
 import CoupleProfile from "@/components/CoupleProfile";
+import SaveTheDate from "@/components/SaveTheDate";
 import { weddingData } from "@/data/content";
 
 export default function HomeClient({ guestName }: { guestName: string }) {
@@ -43,6 +44,7 @@ export default function HomeClient({ guestName }: { guestName: string }) {
                 parentText={`Bapak ${weddingData.groom.father} & Ibu ${weddingData.groom.mother}`}
                 fullName={weddingData.groom.fullName}
               />
+              <SaveTheDate />
             </>
           )}
         </>
