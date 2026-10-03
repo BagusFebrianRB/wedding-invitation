@@ -82,7 +82,6 @@ export default function HomeClient({ guestName }: { guestName: string }) {
               />
               <SaveTheDate />
               <LocationSection />
-              <GiftSection />
               <Penutup />
             </>
           )}
