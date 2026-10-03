@@ -7,6 +7,7 @@ export default function SaveTheDate() {
         src="/save-the-date.png"
         alt="Save the date"
         fill
+        unoptimized
         className="object-cover object-center"
       />
     </section>

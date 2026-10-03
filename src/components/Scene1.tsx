@@ -1,6 +1,6 @@
 "use client";
-import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { useState, useEffect, useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
 
 const charVariants = {
@@ -39,10 +39,20 @@ export default function Scene1({
   const [ready, setReady] = useState(false);
 
   const line1 = "Kepada Yth,";
-  const line1Duration = line1.length * 0.12;
+  const line1Duration = line1.length * 0.02;
   const line2Delay = 0.3 + line1Duration + 0.9;
   const photoDelay = line2Delay + guestName.length * 0.12 + 0.3;
   const photoDuration = 0.9;
+
+  const sceneRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sceneRef,
+    offset: ["start start", "end start"],
+  });
+
+  const textY = useTransform(scrollYProgress, [0, 1], [0, 100]);
+  const guestY = useTransform(scrollYProgress, [0, 1], [0, 80]);
+  const envelopeY = useTransform(scrollYProgress, [0, 1], [0, 70]);
 
   useEffect(() => {
     const totalTime = (photoDelay + photoDuration) * 1000;
@@ -51,39 +61,80 @@ export default function Scene1({
   }, [photoDelay]);
 
   return (
-    <div className="h-screen flex flex-col items-center justify-center px-6 text-center gap-4">
-      <TypingText
-        text={line1}
-        delay={0.3}
-        className="font-sans text-sm tracking-widest text-burgundy-600 uppercase"
-      />
-      <TypingText
-        text={guestName}
-        delay={line2Delay}
-        className="font-script text-3xl text-burgundy-900"
-      />
+    <div ref={sceneRef} className="relative h-screen flex flex-col items-center justify-center px-6 text-center gap-4 bg-cover bg-center" style={{ backgroundImage: "url('/scene1-bg.png')" }}>
+      <div className="absolute inset-0 bg-white/40" />
+      <div className="relative z-10">
+        <motion.div style={{ y: textY }}>
+          <TypingText
+          text={line1}
+          delay={0.3}
+          className="font-sans text-sm tracking-widest text-burgundy-600 uppercase"
+        />
+        </motion.div>
+        
+        <motion.div style={{ y: guestY }}>
+          <TypingText
+          text={guestName}
+          delay={line2Delay}
+          className="font-script text-3xl text-burgundy-900"
+        />
+        </motion.div>
+        
 
-      <motion.div
-        layoutId="couple-photo"
-        onClick={() => ready && onOpen()}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: photoDuration, ease: [0.22, 1, 0.36, 1], delay: photoDelay }}
-        className={`w-56 aspect-[3/4] rounded-lg overflow-hidden mt-4 shadow-lg ${
-          ready ? "cursor-pointer" : "cursor-default"
-        }`}
-      >
-        <Image src="/kita.jpg" alt="" width={400} height={533} priority className="object-cover object-bottom w-full h-full" />
-      </motion.div>
+        <motion.div
+          style={{ y: envelopeY }}
+          onClick={() => ready && onOpen()}
+          initial={{
+            opacity: 0,
+            scale: 0.8,
+          }}
+          animate={{
+            opacity: 1,
+            scale: 1,
+            rotate: [0, 0, -3, 3, -3, 0],
+          }}
+          transition={{
+            opacity: {
+              duration: photoDuration,
+              delay: photoDelay,
+            },
+            scale: {
+              duration: photoDuration,
+              delay: photoDelay,
+              ease: [0.22, 1, 0.36, 1],
+            },
+            rotate: {
+              duration: 2,
+              delay: photoDelay + photoDuration,
+              ease: "easeInOut",
+              repeat: Infinity,
+              repeatDelay: 1,
+            },
+          }}
+          className={`mt-4 ${
+            ready ? "cursor-pointer" : "cursor-default"
+          }`}
+        >
+          <Image
+            src="/envelope.png"
+            alt="Open invitation"
+            width={280}
+            height={280}
+            priority
+            unoptimized
+            className="object-contain"
+          />
+        </motion.div>
 
-      <motion.p
-        initial={{ opacity: 0 }}
-        animate={{ opacity: ready ? 1 : 0 }}
-        transition={{ duration: 0.6 }}
-        className="font-sans text-xs text-charcoal mt-2"
-      >
-        Tap foto untuk membuka
-      </motion.p>
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: ready ? 1 : 0 }}
+          transition={{ duration: 0.6 }}
+          className="font-sans text-xs text-charcoal mt-2"
+        >
+          Tap the envelope to open
+        </motion.p>
+      </div>
     </div>
   );
 }

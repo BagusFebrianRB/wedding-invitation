@@ -7,6 +7,7 @@ export default function Penutup() {
         src="/penutup.png"
         alt="Penutup"
         fill
+        unoptimized
         className="object-cover object-center"
       />
     </section>

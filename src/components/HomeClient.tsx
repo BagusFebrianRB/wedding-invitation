@@ -6,6 +6,7 @@ import PhotoHero from "@/components/PhotoHero";
 import DoaSection from "@/components/DoaSection";
 import CoupleProfile from "@/components/CoupleProfile";
 import SaveTheDate from "@/components/SaveTheDate";
+import Countdown from "@/components/Countdown";
 import LocationSection from "@/components/LocationSection";
 import GiftSection from "@/components/GiftSection";
 import Penutup from "@/components/Penutup";
@@ -13,12 +14,17 @@ import { weddingData } from "@/data/content";
 import { Volume2, VolumeX } from "lucide-react";
 
 export default function HomeClient({ guestName }: { guestName: string }) {
-  const [stage, setStage] = useState<"gate" | "opening" | "opened">("gate");4
+  const [stage, setStage] = useState<"gate" | "opening" | "opened">("gate");
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
+  const photoHeroRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    document.body.style.overflow = stage === "opened" ? "auto" : "hidden";
+    document.body.style.overflow = stage === "gate" ? "hidden" : "auto";
+
+    return () => {
+      document.body.style.overflow = "auto";
+    };
   }, [stage]);
 
   const handleOpen = () => {
@@ -30,6 +36,40 @@ export default function HomeClient({ guestName }: { guestName: string }) {
       console.log("Autoplay diblokir:", err);
     });
   };
+
+  useEffect(() => {
+    if (stage === "opening") {
+      requestAnimationFrame(() => {
+        const target = photoHeroRef.current;
+        if (!target) return;
+
+        const start = window.scrollY;
+        const end = target.getBoundingClientRect().top + window.scrollY;
+        const duration = 2500;
+        const startTime = performance.now();
+
+        const animateScroll = (currentTime: number) => {
+          const elapsed = currentTime - startTime;
+          const progress = Math.min(elapsed / duration, 1);
+
+          const eased =
+            progress < 0.5
+              ? 2 * progress * progress
+              : 1 - Math.pow(-2 * progress + 2, 2) / 2;
+
+          window.scrollTo(0, start + (end - start) * eased);
+
+          if (progress < 1) {
+            requestAnimationFrame(animateScroll);
+          } else {
+            setStage("opened");
+          }
+        };
+
+        requestAnimationFrame(animateScroll);
+      });
+    }
+  }, [stage]);
 
   const toggleMusic = () => {
     if (!audioRef.current) return;
@@ -54,17 +94,19 @@ export default function HomeClient({ guestName }: { guestName: string }) {
         </button>
       )}
       <AnimatePresence>
-        {stage === "gate" && (
+        {stage !== "opened" && (
           <Scene1 guestName={guestName} onOpen={handleOpen}/>
         )}
       </AnimatePresence>
 
       {stage !== "gate" && (
         <>
-          <PhotoHero
-            onExpandComplete={() => setStage("opened")}
-            textVisible={stage === "opened"}
-          />
+          <div ref={photoHeroRef}>
+            <PhotoHero
+              onReady={() => {}}
+              textVisible={stage === "opened"}
+            />
+          </div>
           {stage === "opened" && (
             <>
               <DoaSection />
@@ -81,6 +123,7 @@ export default function HomeClient({ guestName }: { guestName: string }) {
                 fullName={weddingData.groom.fullName}
               />
               <SaveTheDate />
+              <Countdown />
               <LocationSection />
               <Penutup />
             </>
