@@ -18,7 +18,7 @@ export default function PhotoHero({
         transition={{ duration: 1.6, ease: [0.16, 1, 0.3, 1] }}
         className="fixed inset-0"
       >
-        <Image src="/couple.png" alt="" fill priority className="object-cover" />
+        <Image src="/kita.jpg" alt="" fill priority className="object-cover" />
       </motion.div>
 
       <motion.div
