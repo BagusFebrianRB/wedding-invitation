@@ -19,7 +19,7 @@ export default function PhotoHero({
           onAnimationComplete={onReady}
           className="absolute inset-0"
       >
-        <Image src="/kita.jpg" alt="" fill priority unoptimized className="object-cover" />
+        <Image src="/kita.jpg" alt="" fill priority className="object-cover" />
       </motion.div>
 
       <motion.div

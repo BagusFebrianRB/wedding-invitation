@@ -15,7 +15,7 @@ export default function ParallaxImage({ src, alt = "" }: { src: string; alt?: st
   return (
     <div ref={ref} className="absolute inset-0 overflow-hidden">
       <motion.div style={{ y }} className="absolute inset-0 h-[112%] -top-[6%]">
-        <Image src={src} alt={alt} fill unoptimized className="object-cover" />
+        <Image src={src} alt={alt} fill className="object-cover" />
       </motion.div>
     </div>
   );

@@ -76,7 +76,6 @@ export default function Countdown() {
         src="/countdown-bg.png"
         alt="Countdown"
         fill
-        unoptimized
         className="object-cover object-center"
       />
 

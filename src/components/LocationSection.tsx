@@ -8,7 +8,6 @@ export default function LocationSection() {
         src="/lokasi.png"
         alt="Lokasi acara"
         fill
-        unoptimized
         className="object-cover object-top"
       />
 
