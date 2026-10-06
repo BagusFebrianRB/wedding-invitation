@@ -9,6 +9,9 @@ export default function Penutup() {
         fill
         className="object-cover object-center"
       />
+      <p className="absolute bottom-5 left-1/2 z-10 -translate-x-1/2 whitespace-nowrap font-sans text-[7px] tracking-[0.25em] text-burgundy-900/70 uppercase">
+        Made by Groom & Bride
+      </p>
     </section>
   );
 }
